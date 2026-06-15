@@ -55,6 +55,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '170637405271',
     projectId: 'safe-her-app-498605',
     authDomain: 'safe-her-app-498605.firebaseapp.com',
+    databaseURL: 'https://safe-her-app-498605-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'safe-her-app-498605.firebasestorage.app',
     measurementId: 'G-4CFC0PQ9CW',
   );
@@ -64,6 +65,8 @@ class DefaultFirebaseOptions {
     appId: '1:170637405271:android:e1594010a2bd877370c712',
     messagingSenderId: '170637405271',
     projectId: 'safe-her-app-498605',
+    databaseURL: 'https://safe-her-app-498605-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'safe-her-app-498605.firebasestorage.app',
   );
+
 }

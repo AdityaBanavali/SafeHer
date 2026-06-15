@@ -7,6 +7,8 @@ class AnalysisPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(title: const Text("Health Analytics")),
       body: StreamBuilder(
@@ -19,7 +21,6 @@ class AnalysisPage extends StatelessWidget {
           Map logs = snapshot.data!.snapshot.value as Map;
           Map<String, int> counts = {"Cramps": 0, "Headache": 0, "Mood Swing": 0};
           
-          // Using a 'for-in' loop to fix the linting warning
           for (var log in logs.values) {
             if (counts.containsKey(log['symptom'])) {
               counts[log['symptom']] = counts[log['symptom']]! + 1;
@@ -30,32 +31,37 @@ class AnalysisPage extends StatelessWidget {
 
           return Padding(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                const Text("Symptom Frequency", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 40),
-                Expanded(
-                  child: BarChart(
-                    BarChartData(
-                      alignment: BarChartAlignment.spaceAround,
-                      barGroups: entries.asMap().entries.map((e) {
-                        return BarChartGroupData(
-                          x: e.key,
-                          barRods: [BarChartRodData(toY: e.value.value.toDouble(), color: Colors.pinkAccent, width: 20)],
-                        );
-                      }).toList(),
-                      titlesData: FlTitlesData(
-                        bottomTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            getTitlesWidget: (value, meta) => Text(entries[value.toInt()].key),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Text("Symptom Frequency", style: theme.textTheme.titleLarge),
+                    const SizedBox(height: 40),
+                    Expanded(
+                      child: BarChart(
+                        BarChartData(
+                          alignment: BarChartAlignment.spaceAround,
+                          barGroups: entries.asMap().entries.map((e) {
+                            return BarChartGroupData(
+                              x: e.key,
+                              barRods: [BarChartRodData(toY: e.value.value.toDouble(), color: theme.colorScheme.primary, width: 20)],
+                            );
+                          }).toList(),
+                          titlesData: FlTitlesData(
+                            bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                getTitlesWidget: (value, meta) => Text(entries[value.toInt()].key, style: theme.textTheme.bodyMedium),
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           );
         },
